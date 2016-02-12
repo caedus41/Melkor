@@ -13,6 +13,7 @@ app = Flask(__name__)
 # TODO: You're gonna wanna do some basic config eventually
 #app.config()
 
+# http://code.tutsplus.com/tutorials/creating-a-web-app-from-scratch-using-python-flask-and-mysql--cms-22972
 # Data's gotta come from somehwere, hopefully it isn't mongo
 def init_db():
     return
@@ -44,10 +45,14 @@ def face_detected():
     When it detects one, start querying the database for a face that matches
     :return:
     """
+	# Pi should POST to this url with face data
+	# # Face data will then be sent to the GPU for recognition
+	# # GPU should scan images for faces, and check that they match some in the DB 
+	# # GPU then sends packet back to app node
+	# # # App node should store dict of recent faces and ID's. IF it detects a match, send signal to PI
+	# # # to unlock the door  
     return
 
-# Do we want this to be one big binary package?
-# Or should it be something like user_name, uuid
 @app.route('/rfid/', methods=['POST'])
 def check_rfid():
     """
@@ -56,6 +61,10 @@ def check_rfid():
     so we can use it with the request we get with the face information
     :return:
     """
+	# RFID will be sent up from Pi
+	# Make a DB query for the RFID, and pull info
+	# Store info on app node in list of recent faces/id's/names
+	# If adding this causes a match, send signal to Pi to unlock door 
     return
 
 def rfid_face_match():
@@ -83,6 +92,13 @@ def check_PIN(name, pin):
 
 #TODO: Still need to add enpoints and logic for guests (non-residents and non-NUID)
 #TODO: This is gonna need to be multi-threaded. Gevent?
+
+# We're going to need to keep a record of the recently seen faces and recently scanned RFID's
+# Let's keep this list in two places and have the Pi run a script to check this periodically
+# If it finds a match, it can send the signal to open the door. This way we don't have to 
+# send that signal from the server. maybe we can do this after requests? 
+def send_recents():
+	return
 
 @app.route('/')
 def hello_world():
