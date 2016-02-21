@@ -1,7 +1,7 @@
 #!/usr/bin/python
 import socket 
 
-server_addr = "127.0.0.1"
+server_addr = '52.3.38.90'
 port = 4097
 
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM) 
@@ -15,7 +15,6 @@ try:
     s.send("This will make you happy")
 except Exception as e: 
     print 'Something went wrong sending data\n'
-    import ipdb; ipdb.set_trace()
     pass
 
 try: 

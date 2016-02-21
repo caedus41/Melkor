@@ -2,7 +2,7 @@
 import socket
 import subprocess as _sp
 
-host = 'localhost'
+host = socket.gethostname()
 port = 4097
 
 serv_sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
